@@ -1,0 +1,82 @@
+.main_video_player{
+  width:100%;
+}
+.main_title{
+  display:flex;
+  flex-direction: row;
+  height: 55px;
+  margin-bottom: 5px;
+  background-color: #fff;
+}
+.main_container{
+  background-color: #ccc;
+  min-height: 690px;
+}
+.main_list{
+}
+.main_title_title{
+  font-size: 12px;
+  font-weight: bold;
+}
+.main_title_subtitle{
+  font-size: 10px;
+  color:#ccc;
+}
+.main_title_icon_img{
+  margin-left: 8px;
+  height: 26px;
+  width: 26px;
+}
+.main_title_icon{
+  padding-top:14px;
+  float: right;
+  width: 12%;
+}
+.main_title_describe{
+  width: 88%;
+}
+.main_list_btn{
+  display:flex;
+  height: 30px;
+  text-align: center;
+  font-size: 12px;
+  padding-top: 10px;
+  background-color: #fff;
+}
+.main_list_btn_agenda{
+  width: 50%;
+}
+.main_list_btn_comment{
+  width: 50%;
+}
+.main_list_btn>.active{
+  color:red;
+  border-bottom:solid red 1px;
+}
+.main_list_detail_agenda{
+  
+}
+.main_list_detail_agenda_item{
+  color:#ccc;
+  height: 70px;
+  width: 100%;
+  background:#fff url(http://live.tv189.com/portal_live/wap/res/icon/prog0.png) no-repeat 10px -112px; 
+  /* background-color: #fff;
+  background-image: url(../../img/prog0.png);
+  background-repeat: no-repeat;
+  background-position: 10px -112px;  */
+}
+.main_list_detail_agenda_item.dual{
+  background-color: #eee;
+}
+.main_list_detail_agenda>.active{
+  color:red;
+  background-image: url(http://live.tv189.com/portal_live/wap/res/icon/prog1.png);
+}
+.main_list_detail_agenda_p{
+ width: 80%;
+ font-size: 12px;
+ padding:14px 0px 0px 50px; 
+}
+
+

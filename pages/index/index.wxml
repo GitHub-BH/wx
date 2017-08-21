@@ -1,0 +1,8 @@
+<!--input.wxml-->
+<view class="section">
+  <input bindinput="roomId" placeholder="请输入房间号" focus="{{focus}}" />
+  <view class="btn-area">
+    <button bindtap="bindButtonTap">点击输入房间号</button>
+    <button bindtap="enterRoom">进入房间</button>
+  </view>
+</view>

@@ -1,0 +1,38 @@
+<view class="main_container">
+  <view class="section">
+    <video class='main_video_player' id='main_video_player' src="{{src}}"   controls ></video>
+  </view>
+  <view class="section">
+    <view class='main_title'>
+      <view class='main_title_describe'>
+        <view >
+          <span class='main_title_title' bindchange='setDetail'>
+          {{title}}
+          </span>
+        </view>
+        <view>
+          <span class='main_title_subtitle' bindchange='setDetail'>
+          {{subtitle}}
+          </span>
+        </view>
+      </view>
+      <view class='main_title_icon'>
+           <image bindtap="bindAddTop" class='main_title_icon_img' src="{{isTop}}"></image>
+      </view>
+    </view>
+  </view>
+  <view class="section">
+    <view class='main_list'>
+      <view class='main_list_btn'>
+        <view class="main_list_btn_agenda active">节目单</view>
+        <view class="main_list_btn_comment">评论</view>
+      </view>
+      <view class="main_list_detail_agenda">
+            <view  wx:for="{{main_list_detail_agenda}}" wx:for-index="i" wx:for-item="item" class="main_list_detail_agenda_item {{(i+1)%2==0?'dual':''}}">
+               <view class='main_list_detail_agenda_p'>主持人:{{item.host}}</view>
+               <view class='main_list_detail_agenda_p'>主题:{{item.topic}}</view>
+            </view>
+      </view>
+    </view>
+  </view>
+</view>

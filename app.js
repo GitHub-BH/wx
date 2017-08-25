@@ -1,4 +1,5 @@
 //app.js
+var wxQuery = require('./utils/wxquery.js');
 App({
   onLaunch: function() {
     //调用API从本地缓存中获取数据
@@ -25,5 +26,8 @@ App({
 
   globalData: {
     userInfo: null
-  }
+  },
+  /** 全局引入wxQuery */
+  wxQuery: wxQuery,
+  $: wxQuery.$,
 })

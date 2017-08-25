@@ -1,6 +1,9 @@
 .main_video_player{
   width:100%;
 }
+.row{
+  display: flex;
+}
 .main_title{
   display:flex;
   flex-direction: row;
@@ -77,6 +80,28 @@
  width: 80%;
  font-size: 12px;
  padding:14px 0px 0px 50px; 
+}
+.main_list_detail_comment_item{
+  color:#ccc;
+  height: 70px;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: solid 1px #eee;
+  font-size: 12px;
+}
+.main_list_detail_comment_username{
+  padding:5px;
+  width: 70%;
+}
+.main_list_detail_comment_createtime{
+  padding-top: 6px;
+  font-size: 10px;
+  width: 30%;
+}
+.main_list_detail_comment_comment{
+  padding-left: 10px;
+  width: 100%;
+  padding-top: 5px;
 }
 
 

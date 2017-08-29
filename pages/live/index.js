@@ -10,10 +10,23 @@ var _isTop = '';
 var _userInfo='';
 var _player = '';
 var _app = getApp();
-var _comment = {};
+var _comment = [];
+var _newComment = [];
+var _currentCommentPage = '';
 
 
-
+function screenModify(){
+  wx.getSystemInfo({
+    success: function (res) {
+      console.log(res.windowHeight);
+      var height = res.windowHeight;
+      height-=330;
+      _page.setData({
+        scrollHeight:height,
+      });
+    }
+  })
+}
 function getToken(){
   wx.getStorage({
     key: 'token_create_time',
@@ -235,8 +248,13 @@ function webSocket(uid){
     // }
     var cmd = commend.cmd;
     console.log(commend);
-    var content = commend.content;
-    content = JSON.parse(content);
+    if (commend.content){
+      var content = commend.content;
+      if(typeof(content)!='object'){
+        content = JSON.parse(content);
+      }
+    }
+
     //console.log(content);
     runSocketCm(cmd,content);
     console.log('收到服务器内容：' + commend);
@@ -292,6 +310,7 @@ function queryUserInfo(){
 }
 
 function runSocketCm(commend,content){
+   console.log('commend='+commend);
    switch(commend){
      case 'menuChange':
        var item_id = content.id;
@@ -330,21 +349,34 @@ function runSocketCm(commend,content){
       //    }); 
       //  }
      break;
+     case 'add': 
+        var comment = content.info;
+        comment = JSON.parse(comment);
+        var commentContent = comment.comment;
+         _newComment.unshift(comment);
+         console.log(_newComment);
+        _page.setData({
+          main_list_detail_comment_new: _newComment,
+        });
+        _player.sendDanmu({
+          text: commentContent,
+          color: getRandomColor()
+        })
+        //getComment(1, 10);
+     break;
    }
 }
-
-function addClass(obj, cls) {
-  if (!this.hasClass(obj, cls)) {
-    obj.className += " " + cls;
+function getRandomColor() {
+  let rgb = []
+  for (let i = 0; i < 3; ++i) {
+    let color = Math.floor(Math.random() * 256).toString(16)
+    color = color.length == 1 ? '0' + color : color
+    rgb.push(color)
   }
+  return '#' + rgb.join('')
 }
 
-function removeClass(obj, cls) {
-  if (hasClass(obj, cls)) {
-    var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-    obj.className = obj.className.replace(reg, ' ');
-  }
-}
+
 function playerController(type,url){
   _page.setData({
     playerType:type,
@@ -368,15 +400,30 @@ function getComment(page,size){
     },
     success: function (res) {
       var comment = res.data.info.data;
-      _comment = Object.assign(_comment,comment);
+      for(var item in comment){
+        if (typeof (comment[item])=='object'){
+          _comment.push(comment[item]);
+        }   
+      }   
       console.log(_comment);
       console.log("_comment________________");
       _page.setData({
         main_list_detail_comment:_comment,
       });
+      _currentCommentPage = page;
     }
   }) 
 }
+function refreshComment(){
+  console.log("刷新");
+  _currentCommentPage = 1;
+  _comment = [];
+  _page.setData({
+    main_list_detail_comment: _comment,
+  });
+  getComment(_currentCommentPage, 10);
+}
+
 
 
 Page({
@@ -385,12 +432,17 @@ Page({
     isTop:'../../img/icon01.png',
     playerType:'video',
     current_list_btn:'agenda',
+    main_list_detail_comment:'',
   },
   onReady: function (e) {
     _page = this;
     _page.videoContext = wx.createVideoContext('main_video_player');
     _player = _page.videoContext;
-    getToken();    
+    getToken();   
+    screenModify();
+    setTimeout(function(){
+      refreshComment(); 
+    },500);
     //console.log('roomId=' +_roomId); 
   },
   bindAddTop: function (e){
@@ -406,5 +458,13 @@ Page({
     this.setData({
       current_list_btn: 'comment',
     })
+  },
+  pullUpLoad: function (e) {
+    console.log("下拉刷新....");
+    var page = parseInt(_currentCommentPage)+1;
+    getComment(page, 10);
+  },
+  commentReload : function(e){
+    refreshComment();
   }
 })

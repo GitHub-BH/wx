@@ -1,3 +1,4 @@
+page{overflow:hidden}
 .main_video_player{
   width:100%;
 }
@@ -13,7 +14,6 @@
 }
 .main_container{
   background-color: #ccc;
-  min-height: 690px;
 }
 .main_list{
 }
@@ -57,7 +57,6 @@
   border-bottom:solid red 1px;
 }
 .main_list_detail_agenda{
-  
 }
 .main_list_detail_agenda_item{
   color:#ccc;
@@ -72,7 +71,7 @@
 .main_list_detail_agenda_item.dual{
   background-color: #eee;
 }
-.main_list_detail_agenda>.active{
+.main_list_detail_agenda_item.active{
   color:red;
   background-image: url(http://live.tv189.com/portal_live/wap/res/icon/prog1.png);
 }
@@ -82,7 +81,7 @@
  padding:14px 0px 0px 50px; 
 }
 .main_list_detail_comment_item{
-  color:#ccc;
+  color:#999;
   height: 70px;
   width: 100%;
   background-color: #fff;
@@ -102,6 +101,24 @@
   padding-left: 10px;
   width: 100%;
   padding-top: 5px;
+}
+.btnRefresh{
+  position: fixed;
+  top:80%;
+  left:75%;
+  height: 60px;
+  width: 60px;
+  background: #FFCC00;
+  border-radius: 6px;
+  font-size: 14px;
+  color:#fff;
+  opacity:0.5;
+  text-align: center;
+  line-height: 60px;
+}
+.btnRefresh:active{
+  background-color: #FF3300;
+  color:#F7F709;
 }
 
 

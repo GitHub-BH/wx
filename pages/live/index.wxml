@@ -28,13 +28,22 @@
         <view bindtap='main_list_btn_agenda' class="main_list_btn_agenda {{current_list_btn=='agenda'?'active':''}}">节目单</view>
         <view bindtap='main_list_btn_comment' class="main_list_btn_comment {{current_list_btn=='comment'?'active':''}}">评论</view>
       </view>
-      <view class="main_list_detail_agenda" wx:if="{{current_list_btn=='agenda'}}">
+      <scroll-view style="height:{{scrollHeight}}px" class="main_list_detail_agenda" wx:if="{{current_list_btn=='agenda'}}" scroll-y='true'>
             <view  wx:for="{{main_list_detail_agenda}}" wx:for-index="i" wx:for-item="item" class="main_list_detail_agenda_item {{(i+1)%2==0?'dual':''}} {{isOnLoad==item.id?'active':''}}">
                <view class='main_list_detail_agenda_p'>主持人:{{item.host}}</view>
                <view class='main_list_detail_agenda_p'>主题:{{item.topic}}</view>
             </view>
-      </view>
-      <view class="main_list_detail_comment" wx:if="{{current_list_btn=='comment'}}">
+      </scroll-view>
+      <scroll-view style="height:{{scrollHeight}}px" class="main_list_detail_comment" wx:if="{{current_list_btn=='comment'}}" bindscrolltolower="pullUpLoad" scroll-y='true'>
+            <view wx:for="{{main_list_detail_comment_new}}" wx:for-index="i" wx:for-item="item" class="main_list_detail_comment_item" >
+               <view class='row'>
+                <view class='main_list_detail_comment_username'>{{item.userName}}</view>
+                <view class='main_list_detail_comment_createtime'>{{item.createTime}}</view>
+               </view>
+               <view class='row'>
+                <view class='main_list_detail_comment_comment'>{{item.comment}}</view>
+               </view>
+            </view>
             <view wx:for="{{main_list_detail_comment}}" wx:for-index="i" wx:for-item="item" class="main_list_detail_comment_item" >
                <view class='row'>
                 <view class='main_list_detail_comment_username'>{{item.userName}}</view>
@@ -44,7 +53,8 @@
                 <view class='main_list_detail_comment_comment'>{{item.comment}}</view>
                </view>
             </view>
-      </view>
+            <view class="btnRefresh" bindtap="commentReload">刷新</view>
+      </scroll-view>
     </view>
   </view>
 </view>

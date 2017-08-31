@@ -1,0 +1,45 @@
+form{
+
+}
+.icon{
+  display: flex;
+  width: 60px;
+  height: 60px;
+  margin:60px auto;
+}
+input{
+  background-color: #eee;
+  height: 60px;
+  margin: 10px auto;
+}
+.formVerify{
+  width: 100%;
+  height: 30px;
+  font-size: 16px;
+  color: white;
+  background-color: red;
+  border-radius: 3px;
+  margin-left: 10px;
+  opacity: 0.3;
+  padding: 3px;
+}
+.accountNo{
+  width: 100%;
+}
+.msgCode{
+  width: 50%;
+  margin-left: 0px;
+}
+.sendMsg{
+  margin: 10px auto;
+  height: 60px;
+  width: 45%;
+  font-size: 16px;
+  line-height: 60px;
+}
+.msgSession{
+  display: flex;
+}
+.submit{
+  margin-top:20px;
+}

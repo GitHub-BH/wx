@@ -120,5 +120,42 @@ page{overflow:hidden}
   background-color: #FF3300;
   color:#F7F709;
 }
-
+.inputAddComment{
+  display: flex;
+}
+.inputAddCommentSubmit{
+  background-color: #999;
+  width: 20%;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  line-height: 40px;
+  height: 40px;
+}
+.inputAddCommentSubmit:active{
+  background-color: #666;
+}
+.inputAddComment>input{
+  width: 80%;
+  background-color: #ddd;
+  font-size: 16px;
+  text-align: center;
+  color: #666;
+  line-height: 28px;
+  height: 40px;
+}
+.inputAddCommentLogin{
+  width:97%;
+  text-align: center;
+  background-color: #fff;
+  font-size: 16px;
+  line-height:40px;
+  height: 40px;
+  border-radius: 6px;
+  margin: 5px;
+}
+.inputAddCommentLogin:active{
+  background-color: #eee;
+  color: #ccc;
+}
 

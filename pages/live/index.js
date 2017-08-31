@@ -13,6 +13,8 @@ var _app = getApp();
 var _comment = [];
 var _newComment = [];
 var _currentCommentPage = '';
+var _isLogin = false;
+var _isComment = '';
 
 
 function screenModify(){
@@ -114,6 +116,10 @@ function getRoomDetail(){
       getHistoryCm();
       webSocket('');
       getComment(1, 10);
+      _isComment = res.data.info.isComment;
+      _page.setData({
+      isComment : _isComment,
+      });
     }
   })
 }
@@ -294,20 +300,7 @@ function getHistoryCm(){
   })  
 }
 
-function queryUserInfo(){
-  wx.request({
-    url: _host + 'index.php?act=user&fun=queryUserInfo',
-    data: {
-      token: _token,
-    },
-    header: {
-      'content-type': 'application/json'
-    },
-    success: function (res) {
-       _userInfo = res.data.info;
-    }
-  })
-}
+
 
 function runSocketCm(commend,content){
    console.log('commend='+commend);
@@ -424,6 +417,21 @@ function refreshComment(){
   getComment(_currentCommentPage, 10);
 }
 
+function checkLogin() {
+  wx.request({
+    url: _host + 'index.php?act=user&fun=queryUserInfo',
+    data: {
+      token: _token,
+    },
+    header: {
+      'content-type': 'application/json'
+    },
+    success: function (res) {
+      _userInfo = res.data.info;
+    }
+  })
+}
+
 
 
 Page({
@@ -466,5 +474,12 @@ Page({
   },
   commentReload : function(e){
     refreshComment();
+  },
+  inputAddComment : function(e){
+    console.log(e.detail.value);
+  },
+  inputAddCommentLogin:function(e){
+    wx.navigateTo({ url: '../login/index' });
   }
+
 })

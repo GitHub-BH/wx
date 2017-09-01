@@ -8,11 +8,11 @@
 </view> -->
 <image class='icon' src="../../img/redlogo.png"></image>
 <form bindsubmit="submit">
-  <label class='formVerify'>123123123{{formVerify}}</label>
+  <label wx:if="{{formVerify!=''}}" class='formVerify'>{{formVerify}}</label>
   <input bindinput='accountNo' class='accountNo' name='accountNo' placeholder="请输入手机号" />
   <view class='msgSession'>
     <input bindinput='msgCode' class='msgCode' name='msgCode' placeholder="请输入短信验证码" />
     <button bindtap='sendMsg' class='sendMsg' disabled="{{btnEnable == false?'disabled':''}}">{{btnContent}}</button>
   </view>
-  <button class='submit' form-type="submit">登录</button>
+  <button disabled="{{submitEnable == false?'disabled':''}}" class='submit' form-type="submit">登录</button>
 </form>

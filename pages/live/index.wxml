@@ -28,13 +28,13 @@
         <view bindtap='main_list_btn_agenda' class="main_list_btn_agenda {{current_list_btn=='agenda'?'active':''}}">节目单</view>
         <view bindtap='main_list_btn_comment' class="main_list_btn_comment {{current_list_btn=='comment'?'active':''}}">评论</view>
       </view>
-      <form bindsubmit="inputAddComment" wx:if="{{current_list_btn=='comment'&&isComment=='2'}}">
+      <form bindsubmit="inputAddComment" wx:if="{{current_list_btn=='comment'&&isComment=='2'||current_list_btn=='comment'&&isComment=='1'&&isLogin==true}}">
         <view class="inputAddComment" >
-          <input name='input' placeholder="我来说几句"/>
+          <input name='input' placeholder="我来说几句" value='{{commentInputValue}}'/>
           <button formType="submit" class="inputAddCommentSubmit">发送</button>
         </view>
       </form>
-      <view bindtap="inputAddCommentLogin" class="inputAddCommentLogin" wx:if="{{current_list_btn=='comment'&&isComment=='1'}}">
+      <view bindtap="inputAddCommentLogin" class="inputAddCommentLogin" wx:if="{{current_list_btn=='comment'&&isComment=='1'&&isLogin==false}}">
       登录后可发表评论
       </view>
       <scroll-view style="height:{{scrollHeight}}px" class="main_list_detail_agenda" wx:if="{{current_list_btn=='agenda'}}" scroll-y='true'>

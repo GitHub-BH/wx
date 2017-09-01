@@ -120,6 +120,7 @@ function getRoomDetail(){
       _page.setData({
       isComment : _isComment,
       });
+      checkLogin();
     }
   })
 }
@@ -428,10 +429,32 @@ function checkLogin() {
     },
     success: function (res) {
       _userInfo = res.data.info;
+      if(res.data.code==0){
+        _page.setData({
+          isLogin: true,
+        });
+      }
     }
   })
 }
-
+function addComment(comment) {
+  wx.request({
+    url: _host + 'index.php?act=comment&fun=addComment',
+    data: {
+      token: _token,
+      liveId: _liveId,
+      comment: comment,
+    },
+    header: {
+      'content-type': 'application/json'
+    },
+    success: function (res) {
+      _page.setData({
+        commentInputValue:'',
+      });
+    }
+  })
+}
 
 
 Page({
@@ -441,6 +464,7 @@ Page({
     playerType:'video',
     current_list_btn:'agenda',
     main_list_detail_comment:'',
+    isLogin:false,
   },
   onReady: function (e) {
     _page = this;
@@ -477,9 +501,11 @@ Page({
   },
   inputAddComment : function(e){
     console.log(e.detail.value);
+    var comment = e.detail.value.input;
+    addComment(comment);
   },
   inputAddCommentLogin:function(e){
     wx.navigateTo({ url: '../login/index' });
-  }
+  },
 
 })

@@ -97,6 +97,16 @@ function sendMsgInterval(interval) {
     }
   }, 1000);
 }
+function getUserInfo(){
+  var AppId = 'wx7be4a20c63f3d3d0';
+  var AppSecret = '44863f6221caca16a37c5da887ccae6c';
+  wx.getUserInfo({
+    success: function (res) {
+      console.log(res);
+      var encryptedData = res.data.encryptedData;
+    }
+  })
+}
 Page({
   data:{
     btnContent:'点击获取验证码',
@@ -113,6 +123,20 @@ Page({
           _token = res.data;
         }
       },
+    });
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          wx.authorize({
+            scope: 'scope.userInfo',
+            success() {
+              getUserInfo();
+            }
+          })
+        } else if (res.authSetting['scope.userInfo']){
+          getUserInfo();
+        }
+      }
     })
   },
   submit:function(e){

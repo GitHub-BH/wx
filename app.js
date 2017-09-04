@@ -1,5 +1,7 @@
 //app.js
 var wxQuery = require('./utils/wxquery.js');
+var WXBizDataCrypt = require('./utils/RdWXBizDataCrypt.js');
+
 App({
   onLaunch: function() {
     //调用API从本地缓存中获取数据
@@ -30,4 +32,5 @@ App({
   /** 全局引入wxQuery */
   wxQuery: wxQuery,
   $: wxQuery.$,
+  WXBizDataCrypt: WXBizDataCrypt,
 })

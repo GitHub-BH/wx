@@ -98,14 +98,50 @@ function sendMsgInterval(interval) {
   }, 1000);
 }
 function getUserInfo(){
-  var AppId = 'wx7be4a20c63f3d3d0';
-  var AppSecret = '44863f6221caca16a37c5da887ccae6c';
+  var encryptedData='';
+  var iv = '';
   wx.getUserInfo({
     success: function (res) {
       console.log(res);
-      var encryptedData = res.data.encryptedData;
+      encryptedData = res.encryptedData;
+      iv = res.iv;
+      wx.login({
+        success: function (res) {
+          console.log(res);
+          wx.request({
+            url: 'https://live.tv189.com/portal_live/index.php?act=wx&fun=decode',
+            data: {
+              code: res.code,
+              iv:iv,
+              encryptedData: encryptedData,
+            },
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            method: 'GET',
+            success: function (res) {
+              // if(res.data){
+              //   res = res.data;
+              //   res = res.replace(/[\\]/g, "");
+              //   res = res.substring(7, res.length - 1);
+              //   //res.replace(/(^\s*)|(\s*$)/g, "");
+              //   res = JSON.parse(res);
+
+              //   console.log(res);
+              // }else{
+              //   setTimeout(function () { getUserInfo() }, 500);
+              //   return;
+              // }
+              console.log(res);
+            },
+            fail: function (res) { },
+            complete: function (res) { }
+          });
+        }
+      })
     }
   })
+
 }
 Page({
   data:{
@@ -130,14 +166,17 @@ Page({
           wx.authorize({
             scope: 'scope.userInfo',
             success() {
-              getUserInfo();
+               getUserInfo();
             }
           })
         } else if (res.authSetting['scope.userInfo']){
           getUserInfo();
         }
-      }
-    })
+      },
+      fail(res){
+        console.log('123');
+      },
+    });
   },
   submit:function(e){
      var accountNo = e.detail.value.accountNo;
